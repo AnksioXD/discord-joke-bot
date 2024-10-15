@@ -1,12 +1,39 @@
 import { Client, GatewayIntentBits, REST, Routes } from 'discord.js';
 import 'dotenv/config'
+
 const TOKEN = process.env.TOKEN
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
+function sendJokeEveryXMinutes(channelId, time) {
+    setInterval(async () => {
+        const joke = await fetchJoke()
 
+        const channel = await client.channels.fetch(channelId);
+
+        if (channel) {
+            if (joke.type == "twopart") {
+                await channel.send(joke.setup);
+                setTimeout(async () => {
+                    await channel.send(joke.delivery);
+
+                }, 2000);
+            } else {
+                await channel.send(joke.joke);
+            }
+        } else {
+            console.log('Channel not found.');
+        }
+    }, time);
+}
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+
+    const channelId = '1089221633870409879';
+    const time = 600000;
+
+    sendJokeEveryXMinutes(channelId, time)
+
 });
 
 async function fetchJoke() {
