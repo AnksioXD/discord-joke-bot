@@ -53,7 +53,7 @@ client.on('interactionCreate', async interaction => {
     if (!interaction.isChatInputCommand()) return;
     const joke = await fetchJoke()
 
-    if (interaction.commandName === 'joke') {
+    if (interaction.commandName === 'jokebro') {
         if (joke.type == "twopart") {
             await interaction.reply(joke.setup);
             setTimeout(async () => {
