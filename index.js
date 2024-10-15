@@ -29,7 +29,7 @@ function sendJokeEveryXMinutes(channelId, time) {
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 
-    const channelId = '1089221633870409879';
+    const channelId = '1089214985013563434';
     const time = 600000;
 
     sendJokeEveryXMinutes(channelId, time)
